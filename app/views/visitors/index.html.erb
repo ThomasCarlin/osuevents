@@ -57,9 +57,10 @@
   });
 
 <% end %>
-<script>
-$(document).ready(function(){
-	$('#ide').click(function(){
+<%= javascript_tag do %>
+	$(document).ready(function(){
+	<% Calendar.all.each do |calendar| %>
+	$('#<%=calendar.name%>').click(function(){
 	  $(this).toggleClass('btn btn-default');
 	  $(this).toggleClass('btn btn-success');
 	  $( "span", this ).toggleClass('glyphicon glyphicon-unchecked');
@@ -67,32 +68,17 @@ $(document).ready(function(){
 
 	  if($(this).val()=='false'){
 	  $(this).val('true');
-	  $('#calendar').fullCalendar( 'addEventSource', 'usa__en@holiday.calendar.google.com' );
+	  $('#calendar').fullCalendar( 'addEventSource', '<%=calendar.url%>' );
 	  }
 	  else{
 	  $(this).val('false');
-	  $('#calendar').fullCalendar( 'removeEventSource', 'usa__en@holiday.calendar.google.com' );
+	  $('#calendar').fullCalendar( 'removeEventSource', '<%=calendar.url%>' );
 	  }
 	  $('#calendar').fullCalendar( 'rerenderEvents' );
 	});
-	$('#ides').click(function(){
-	  $('#ides').toggleClass('btn btn-default');
-	  $('#ides').toggleClass('btn btn-success');
-	  $('#ides span').toggleClass('glyphicon glyphicon-unchecked');
-	  $('#ides span').toggleClass('glyphicon glyphicon-check');
-
-	  if($('#ides').val()=='false'){
-	  $('#ides').val('true');
-	  $('#calendar').fullCalendar( 'addEventSource', 'usa__en@holiday.calendar.google.com' );
-	  }
-	  else{
-	  $('#ides').val('false');
-	  $('#calendar').fullCalendar( 'removeEventSource', 'usa__en@holiday.calendar.google.com' );
-	  }
-	  $('#calendar').fullCalendar( 'rerenderEvents' );
-	});
+	<% end %>
 });
-</script>
+<% end %>
 <div id='loading'>loading...</div>
 <div class='container-fluid'>
 	<div class="row">
@@ -100,14 +86,12 @@ $(document).ready(function(){
 			<div id='calendar'></div>
 		</div>
 		<div class='col-md-4'>
-			<button id='ide' type="button" class="btn btn-default" value="false">
-			  <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-			What
-			</button>
-			<button id='ides' type="button" class="btn btn-default" value="false">
-			  <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-			What
-			</button>
+			<% Calendar.all.each do |calendar| %>
+				<button id="<%=calendar.name%>" type="button" class="btn btn-default" value="false">
+			  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+				What
+				</button>
+			<% end %>
 			<h1> Add a Calendar!</h1>
 			<!-- Button trigger modal -->
 			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
