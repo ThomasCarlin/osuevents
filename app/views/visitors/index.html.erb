@@ -44,6 +44,12 @@
       }
       
     });
+    
+  });
+
+<% end %>
+<%= javascript_tag do %>
+	$(document).ready(function(){
 		<% Calendar.all.each do |calendar| %>
 		  $('#<%=calendar.name%>').removeClass('btn btn-default');
 		  $('#<%=calendar.name%>').addClass('btn btn-success');
