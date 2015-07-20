@@ -51,26 +51,26 @@
 <%= javascript_tag do %>
 	$(document).ready(function(){
 		<% Calendar.all.each do |calendar| %>
-		  $('#<%=calendar.name%>').removeClass('btn btn-default');
-		  $('#<%=calendar.name%>').addClass('btn btn-success');
-		  $( "span", '#<%=calendar.name%>' ).removeClass('glyphicon glyphicon-unchecked');
-		  $( "span", '#<%=calendar.name%>' ).addClass('glyphicon glyphicon-check');
+		  $('#<%=calendar.id%>').removeClass('btn btn-default');
+		  $('#<%=calendar.id%>').addClass('btn btn-success');
+		  $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-unchecked');
+		  $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-check');
 
-		  if($('#<%=calendar.name%>').val()=='false'){
-		  $('#<%=calendar.name%>').val('true');
+		  if($('#<%=calendar.id%>').val()=='false'){
+		  $('#<%=calendar.id%>').val('true');
 		  $('#calendar').fullCalendar( 'addEventSource', '<%=calendar.url%>' );
 		  }
 		  $('#calendar').fullCalendar( 'rerenderEvents' );
 		<% end %>	
 		$('#selectAll').click(function(){
 			<% Calendar.all.each do |calendar| %>
-			  $('#<%=calendar.name%>').removeClass('btn btn-default');
-			  $('#<%=calendar.name%>').addClass('btn btn-success');
-			  $( "span", '#<%=calendar.name%>' ).removeClass('glyphicon glyphicon-unchecked');
-			  $( "span", '#<%=calendar.name%>' ).addClass('glyphicon glyphicon-check');
+			  $('#<%=calendar.id%>').removeClass('btn btn-default');
+			  $('#<%=calendar.id%>').addClass('btn btn-success');
+			  $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-unchecked');
+			  $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-check');
 
-			  if($('#<%=calendar.name%>').val()=='false'){
-			  $('#<%=calendar.name%>').val('true');
+			  if($('#<%=calendar.id%>').val()=='false'){
+			  $('#<%=calendar.id%>').val('true');
 			  $('#calendar').fullCalendar( 'addEventSource', '<%=calendar.url%>' );
 			  }
 			  $('#calendar').fullCalendar( 'rerenderEvents' );
@@ -78,20 +78,20 @@
 		});
 		$('#clearAll').click(function(){
 			<% Calendar.all.each do |calendar| %>
-			  $('#<%=calendar.name%>').removeClass('btn btn-success');
-			  $('#<%=calendar.name%>').addClass('btn btn-default');
-			  $( "span", '#<%=calendar.name%>' ).removeClass('glyphicon glyphicon-check');
-			  $( "span", '#<%=calendar.name%>' ).addClass('glyphicon glyphicon-unchecked');
+			  $('#<%=calendar.id%>').removeClass('btn btn-success');
+			  $('#<%=calendar.id%>').addClass('btn btn-default');
+			  $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-check');
+			  $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-unchecked');
 
-			  if($('#<%=calendar.name%>').val()!='false'){
-			  $('#<%=calendar.name%>').val('false');
+			  if($('#<%=calendar.id%>').val()!='false'){
+			  $('#<%=calendar.id%>').val('false');
 			  $('#calendar').fullCalendar( 'removeEventSource', '<%=calendar.url%>' );
 			  }
 			  $('#calendar').fullCalendar( 'rerenderEvents' );
 			<% end %>			
 		});
 	<% Calendar.all.each do |calendar| %>
-	$('#<%=calendar.name%>').click(function(){
+	$('#<%=calendar.id%>').click(function(){
 	  $(this).toggleClass('btn btn-default');
 	  $(this).toggleClass('btn btn-success');
 	  $( "span", this ).toggleClass('glyphicon glyphicon-unchecked');
@@ -99,7 +99,8 @@
 
 	  if($(this).val()=='false'){
 	  $(this).val('true');
-	  $('#calendar').fullCalendar( 'addEventSource', '<%=calendar.url%>' );
+
+	  $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>',color: '#3E8F3E' });
 	  }
 	  else{
 	  $(this).val('false');
@@ -141,7 +142,7 @@
 				<div class='col-md-6'>
 					<h2> Entertainment </h2>
 					<% Calendar.where(typeOf:"Entertainment").each do |calendar| %>
-						<button id="<%=calendar.name%>" type="button" class="btn btn-default btn-block" value="false">
+						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
 					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
 						<%= calendar.name %>
 						</button>
@@ -150,7 +151,7 @@
 				<div class='col-md-6'>
 					<h2> Sports </h2>
 					<% Calendar.where(typeOf:"Sports").each do |calendar| %>
-						<button id="<%=calendar.name%>" type="button" class="btn btn-default btn-block" value="false">
+						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
 					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
 						<%= calendar.name %>
 						</button>
@@ -161,7 +162,7 @@
 				<div class='col-md-6'>
 					<h2> Food & Drinks </h2>
 					<% Calendar.where(typeOf:"Food and Drinks").each do |calendar| %>
-						<button id="<%=calendar.name%>" type="button" class="btn btn-default btn-block" value="false">
+						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
 					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
 						<%= calendar.name %>
 						</button>
@@ -170,7 +171,7 @@
 				<div class='col-md-6'>
 					<h2> Student Orgs </h2>
 					<% Calendar.where(typeOf:"School Events/Student Organizations").each do |calendar| %>
-						<button id="<%=calendar.name%>" type="button" class="btn btn-default btn-block" value="false">
+						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
 					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
 						<%= calendar.name %>
 						</button>
@@ -181,7 +182,7 @@
 				<div class='col-md-6'>
 					<h2> Others </h2>
 					<% Calendar.where(typeOf:"Other").each do |calendar| %>
-						<button id="<%=calendar.name%>" type="button" class="btn btn-default btn-block" value="false">
+						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
 					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
 						<%= calendar.name %>
 						</button>
@@ -201,14 +202,14 @@
       </div>
       <div class="modal-body">
 		<%= form_tag visitors_addcalendar_path do %>
-			<h2> Name </h2>
-			<%= text_field_tag(:name,nil,size: 75) %><br>
-			<h2> Type </h2>
+			<h3> Name </h3>
+			<%= text_field_tag(:name,nil,style:"width:100%") %><br>
+			<h3> Type </h3>
 		    <%= select_tag :type, options_for_select(types), size:5, style:"width:100%" %><br>
-		    <h2> Description </h2>
+		    <h3> Description </h3>
 			<%= text_area_tag(:desc,nil,size:"73x5") %><br>
-			<h2> URL </h2>
-			<%= text_field_tag(:url,nil,size:75) %><br>
+			<h3> URL </h3>
+			<%= text_field_tag(:url,nil,style:"width:100%") %><br>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
