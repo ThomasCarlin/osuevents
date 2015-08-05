@@ -61,7 +61,17 @@
 
           if($('#<%=calendar.id%>').val()=='false'){
           $('#<%=calendar.id%>').val('true');
-          $('#calendar').fullCalendar( 'addEventSource', '<%=calendar.url%>' );
+          <% if calendar.typeOf == 'Other' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#468966' });
+          <% elsif calendar.typeOf == 'Entertainment' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FFF0A5' });
+          <% elsif calendar.typeOf == 'Food and Drinks' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FFB03B' });
+          <% elsif calendar.typeOf == 'Sports' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#B64926' });  
+          <% elsif calendar.typeOf == 'School Events/Student Organizations' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#8E2800' });  
+          <% end %>
           }
           $('#calendar').fullCalendar( 'rerenderEvents' );
         <% end %>   
@@ -102,8 +112,17 @@
 
       if($(this).val()=='false'){
       $(this).val('true');
-
-      $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>',color: '#3E8F3E' });
+          <% if calendar.typeOf == 'Other' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#468966' });
+          <% elsif calendar.typeOf == 'Entertainment' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FFF0A5' });
+          <% elsif calendar.typeOf == 'Food and Drinks' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FFB03B' });
+          <% elsif calendar.typeOf == 'Sports' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#B64926' });  
+          <% elsif calendar.typeOf == 'School Events/Student Organizations' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#8E2800' });  
+          <% end %>
       }
       else{
       $(this).val('false');
@@ -126,7 +145,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
+                <a class="navbar-brand" href="index.html">OSU EVENTS</a>
             </div>
             <!-- Top Menu Items -->
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -135,7 +154,7 @@
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#dropdown1">
                           <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span> Entertainment
-                          <span class="badge"><%= Calendar.where(typeOf:"Other").count  %></span>
+                          <span class="badge"><%= Calendar.where(typeOf:"Entertainment").count  %></span>
                         </a>
                         <ul id="dropdown1" class="collapse">
                         <% Calendar.where(typeOf:"Entertainment").each do |calendar| %>
