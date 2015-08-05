@@ -129,131 +129,16 @@
                 <a class="navbar-brand" href="index.html">SB Admin</a>
             </div>
             <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
                     <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
-                    </li>
-                    <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                        <% Calendar.where(typeOf:"Other").each do |calendar| %>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown1">
+                          <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span> Entertainment
+                          <span class="badge"><%= Calendar.where(typeOf:"Other").count  %></span>
+                        </a>
+                        <ul id="dropdown1" class="collapse">
+                        <% Calendar.where(typeOf:"Entertainment").each do |calendar| %>
                             <li>
                                 <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
                                 <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
@@ -264,10 +149,70 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown2">
+                          <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>  Athletics 
+                          <span class="badge"><%= Calendar.where(typeOf:"Sports").count  %></span> </a>
+                        <ul id="dropdown2" class="collapse">
+                        <% Calendar.where(typeOf:"Sports").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
                     </li>
                     <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown3">
+                          <span class="glyphicon glyphicon-glass" aria-hidden="true"></span> Food/Drinks
+                          <span class="badge"><%= Calendar.where(typeOf:"Food and Drinks").count  %></span></a>
+                        <ul id="dropdown3" class="collapse">
+                        <% Calendar.where(typeOf:"Food and Drinks").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown4">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Student Orgs
+                        <span class="badge"><%= Calendar.where(typeOf:"School Events/Student Organizations").count  %></span></a>
+                        <ul id="dropdown4" class="collapse">
+                        <% Calendar.where(typeOf:"School Events/Student Organizations").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown5">
+                          <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Others
+                          <span class="badge"><%= Calendar.where(typeOf:"Other").count  %></span></a>
+                        <ul id="dropdown5" class="collapse">
+                        <% Calendar.where(typeOf:"Other").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
+                    </li>
+                    <li> 
+                        <a data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                          Add a Calendar!
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -283,81 +228,7 @@
                         <div id='calendar'></div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class='col-md-4'>
-                        <div class='row'>
-                            <div class='col-md-12'>
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">
-                                  Add a Calendar!
-                                </button>
-                            </div>
-                            <div class='col-md-6'>
-                                <!-- Button trigger modal -->
-                                <button type="button" id="selectAll" class="btn btn-primary btn-lg btn-block" value="false">
-                                  Select All
-                                </button>
-                            </div>
-                            <div class='col-md-6'>
-                                <!-- Button trigger modal -->
-                                <button type="button" id="clearAll" class="btn btn-primary btn-lg btn-block" value="false">
-                                  Clear All
-                                </button>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <div class='col-md-6'>
-                                <h2> Entertainment </h2>
-                                <% Calendar.where(typeOf:"Entertainment").each do |calendar| %>
-                                    <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-                                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-                                    <%= calendar.name %>
-                                    </button>
-                                <% end %>
-                            </div>
-                            <div class='col-md-6'>
-                                <h2> Sports </h2>
-                                <% Calendar.where(typeOf:"Sports").each do |calendar| %>
-                                    <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-                                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-                                    <%= calendar.name %>
-                                    </button>
-                                <% end %>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <div class='col-md-6'>
-                                <h2> Food & Drinks </h2>
-                                <% Calendar.where(typeOf:"Food and Drinks").each do |calendar| %>
-                                    <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-                                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-                                    <%= calendar.name %>
-                                    </button>
-                                <% end %>
-                            </div>
-                            <div class='col-md-6'>
-                                <h2> Student Orgs </h2>
-                                <% Calendar.where(typeOf:"School Events/Student Organizations").each do |calendar| %>
-                                    <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-                                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-                                    <%= calendar.name %>
-                                    </button>
-                                <% end %>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <div class='col-md-6'>
-                                <h2> Others </h2>
-                                <% Calendar.where(typeOf:"Other").each do |calendar| %>
-                                    <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-                                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-                                    <%= calendar.name %>
-                                    </button>
-                                <% end %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
