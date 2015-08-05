@@ -62,15 +62,15 @@
           if($('#<%=calendar.id%>').val()=='false'){
           $('#<%=calendar.id%>').val('true');
           <% if calendar.typeOf == 'Other' %>
-             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#468966' });
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#453831' });
           <% elsif calendar.typeOf == 'Entertainment' %>
-             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FFF0A5' });
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#442369' });
           <% elsif calendar.typeOf == 'Food and Drinks' %>
              $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FFB03B' });
           <% elsif calendar.typeOf == 'Sports' %>
-             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#B64926' });  
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#d65828' });  
           <% elsif calendar.typeOf == 'School Events/Student Organizations' %>
-             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#8E2800' });  
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#bb0000' });  
           <% end %>
           }
           $('#calendar').fullCalendar( 'rerenderEvents' );
@@ -113,15 +113,15 @@
       if($(this).val()=='false'){
       $(this).val('true');
           <% if calendar.typeOf == 'Other' %>
-             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#468966' });
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#453831' });
           <% elsif calendar.typeOf == 'Entertainment' %>
-             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FFF0A5' });
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#442369' });
           <% elsif calendar.typeOf == 'Food and Drinks' %>
              $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FFB03B' });
           <% elsif calendar.typeOf == 'Sports' %>
-             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#B64926' });  
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#d65828' });  
           <% elsif calendar.typeOf == 'School Events/Student Organizations' %>
-             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#8E2800' });  
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#bb0000' });  
           <% end %>
       }
       else{
