@@ -1,10 +1,7 @@
-
 <style>
-body{margin-top:50px;}
-.glyphicon { margin-right:10px; }
-.panel-body { padding:0px; }
-.panel-body table tr td { padding-left: 15px }
-.panel-body .table {margin-bottom: 0px; }
+#calendar {
+    max-width: 100%;
+}
 </style>
 <%= javascript_tag do %>
   $(document).ready(function() {
@@ -15,7 +12,7 @@ body{margin-top:50px;}
       // To make your own Google API key, follow the directions here:
       // http://fullcalendar.io/docs/google_calendar/
       googleCalendarApiKey: 'AIzaSyBEgUzcWCBGR0OWJ8Up1eJKlJauJDDZPdA',
-      theme: true,
+      theme: false,
       // US Holidays
       eventSources: [
       ],  
@@ -55,319 +52,234 @@ body{margin-top:50px;}
 
 <% end %>
 <%= javascript_tag do %>
-	$(document).ready(function(){
-		<% Calendar.all.each do |calendar| %>
-		  $('#<%=calendar.id%>').removeClass('btn btn-default');
-		  $('#<%=calendar.id%>').addClass('btn btn-success');
-		  $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-unchecked');
-		  $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-check');
+    $(document).ready(function(){
+        <% Calendar.all.each do |calendar| %>
+          $('#<%=calendar.id%>').removeClass('btn btn-default');
+          $('#<%=calendar.id%>').addClass('btn btn-success');
+          $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-unchecked');
+          $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-check');
 
-		  if($('#<%=calendar.id%>').val()=='false'){
-		  $('#<%=calendar.id%>').val('true');
-		  $('#calendar').fullCalendar( 'addEventSource', '<%=calendar.url%>' );
-		  }
-		  $('#calendar').fullCalendar( 'rerenderEvents' );
-		<% end %>	
-		$('#selectAll').click(function(){
-			<% Calendar.all.each do |calendar| %>
-			  $('#<%=calendar.id%>').removeClass('btn btn-default');
-			  $('#<%=calendar.id%>').addClass('btn btn-success');
-			  $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-unchecked');
-			  $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-check');
+          if($('#<%=calendar.id%>').val()=='false'){
+          $('#<%=calendar.id%>').val('true');
+          <% if calendar.typeOf == 'Other' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#820FBF' });
+          <% elsif calendar.typeOf == 'Entertainment' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FF2108' });
+          <% elsif calendar.typeOf == 'Food and Drinks' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#00AEFF' });
+          <% elsif calendar.typeOf == 'Sports' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#0CB508' });  
+          <% elsif calendar.typeOf == 'School Events/Student Organizations' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#F7AB00' });  
+          <% end %>
+          }
+          $('#calendar').fullCalendar( 'rerenderEvents' );
+        <% end %>   
+        $('#selectAll').click(function(){
+            <% Calendar.all.each do |calendar| %>
+              $('#<%=calendar.id%>').removeClass('btn btn-default');
+              $('#<%=calendar.id%>').addClass('btn btn-success');
+              $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-unchecked');
+              $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-check');
 
-			  if($('#<%=calendar.id%>').val()=='false'){
-			  $('#<%=calendar.id%>').val('true');
-			  $('#calendar').fullCalendar( 'addEventSource', '<%=calendar.url%>' );
-			  }
-			  $('#calendar').fullCalendar( 'rerenderEvents' );
-			<% end %>			
-		});
-		$('#clearAll').click(function(){
-			<% Calendar.all.each do |calendar| %>
-			  $('#<%=calendar.id%>').removeClass('btn btn-success');
-			  $('#<%=calendar.id%>').addClass('btn btn-default');
-			  $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-check');
-			  $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-unchecked');
+              if($('#<%=calendar.id%>').val()=='false'){
+              $('#<%=calendar.id%>').val('true');
+              $('#calendar').fullCalendar( 'addEventSource', '<%=calendar.url%>' );
+              }
+              $('#calendar').fullCalendar( 'rerenderEvents' );
+            <% end %>           
+        });
+        $('#clearAll').click(function(){
+            <% Calendar.all.each do |calendar| %>
+              $('#<%=calendar.id%>').removeClass('btn btn-success');
+              $('#<%=calendar.id%>').addClass('btn btn-default');
+              $( "span", '#<%=calendar.id%>' ).removeClass('glyphicon glyphicon-check');
+              $( "span", '#<%=calendar.id%>' ).addClass('glyphicon glyphicon-unchecked');
 
-			  if($('#<%=calendar.id%>').val()!='false'){
-			  $('#<%=calendar.id%>').val('false');
-			  $('#calendar').fullCalendar( 'removeEventSource', '<%=calendar.url%>' );
-			  }
-			  $('#calendar').fullCalendar( 'rerenderEvents' );
-			<% end %>			
-		});
-	<% Calendar.all.each do |calendar| %>
-	$('#<%=calendar.id%>').click(function(){
-	  $(this).toggleClass('btn btn-default');
-	  $(this).toggleClass('btn btn-success');
-	  $( "span", this ).toggleClass('glyphicon glyphicon-unchecked');
-	  $( "span", this ).toggleClass('glyphicon glyphicon-check');
+              if($('#<%=calendar.id%>').val()!='false'){
+              $('#<%=calendar.id%>').val('false');
+              $('#calendar').fullCalendar( 'removeEventSource', '<%=calendar.url%>' );
+              }
+              $('#calendar').fullCalendar( 'rerenderEvents' );
+            <% end %>           
+        });
+    <% Calendar.all.each do |calendar| %>
+    $('#<%=calendar.id%>').click(function(){
+      $(this).toggleClass('btn btn-default');
+      $(this).toggleClass('btn btn-success');
+      $( "span", this ).toggleClass('glyphicon glyphicon-unchecked');
+      $( "span", this ).toggleClass('glyphicon glyphicon-check');
 
-	  if($(this).val()=='false'){
-	  $(this).val('true');
-
-	  $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>',color: '#3E8F3E' });
-	  }
-	  else{
-	  $(this).val('false');
-	  $('#calendar').fullCalendar( 'removeEventSource', '<%=calendar.url%>' );
-	  }
-	  $('#calendar').fullCalendar( 'rerenderEvents' );
-	});
-	<% end %>
+      if($(this).val()=='false'){
+      $(this).val('true');
+          <% if calendar.typeOf == 'Other' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#820FBF' });
+          <% elsif calendar.typeOf == 'Entertainment' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#FF2108' });
+          <% elsif calendar.typeOf == 'Food and Drinks' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#00AEFF' });
+          <% elsif calendar.typeOf == 'Sports' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#0CB508' });  
+          <% elsif calendar.typeOf == 'School Events/Student Organizations' %>
+             $('#calendar').fullCalendar( 'addEventSource', {url:'<%=calendar.url%>', color:  '#F7AB00' });  
+          <% end %>
+      }
+      else{
+      $(this).val('false');
+      $('#calendar').fullCalendar( 'removeEventSource', '<%=calendar.url%>' );
+      }
+      $('#calendar').fullCalendar( 'rerenderEvents' );
+    });
+    <% end %>
 });
 <% end %>
-<div id='loading'>loading...</div>
-<div class='container-fluid'>
-	<div class="row">
-		<div class='col-md-8'>
-			<div id='calendar'></div>
-		</div>
-		<div class='col-md-4'>
-			<div class='row'>
-				<div class='col-md-12'>
-					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">
-					  Add a Calendar!
-					</button>
-				</div>
-				<div class='col-md-6'>
-					<!-- Button trigger modal -->
-					<button type="button" id="selectAll" class="btn btn-primary btn-lg btn-block" value="false">
-					  Select All
-					</button>
-				</div>
-				<div class='col-md-6'>
-					<!-- Button trigger modal -->
-					<button type="button" id="clearAll" class="btn btn-primary btn-lg btn-block" value="false">
-					  Clear All
-					</button>
-				</div>
-			</div>
-			<div class='row'>
-				<div class='col-md-6'>
-					<h2> Entertainment </h2>
-					<% Calendar.where(typeOf:"Entertainment").each do |calendar| %>
-						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-						<%= calendar.name %>
-						</button>
-					<% end %>
-				</div>
-				<div class='col-md-6'>
-					<h2> Sports </h2>
-					<% Calendar.where(typeOf:"Sports").each do |calendar| %>
-						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-						<%= calendar.name %>
-						</button>
-					<% end %>
-				</div>
-			</div>
-			<div class='row'>
-				<div class='col-md-6'>
-					<h2> Food & Drinks </h2>
-					<% Calendar.where(typeOf:"Food and Drinks").each do |calendar| %>
-						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-						<%= calendar.name %>
-						</button>
-					<% end %>
-				</div>
-				<div class='col-md-6'>
-					<h2> Student Orgs </h2>
-					<% Calendar.where(typeOf:"School Events/Student Organizations").each do |calendar| %>
-						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-						<%= calendar.name %>
-						</button>
-					<% end %>
-				</div>
-			</div>
-			<div class='row'>
-				<div class='col-md-6'>
-					<h2> Others </h2>
-					<% Calendar.where(typeOf:"Other").each do |calendar| %>
-						<button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
-					  	<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
-						<%= calendar.name %>
-						</button>
-					<% end %>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h1 class="modal-title" id="myModalLabel">Add a Google Calendar!</h1>
-      </div>
-      <div class="modal-body">
-		<%= form_tag visitors_addcalendar_path do %>
-			<h3> Name </h3>
-			<%= text_field_tag(:name,nil,style:"width:100%") %><br>
-			<h3> Type </h3>
-		    <%= select_tag :type, options_for_select(types), size:5, style:"width:100%" %><br>
-		    <h3> Description </h3>
-			<%= text_area_tag(:desc,nil,size:"73x5") %><br>
-			<h3> URL </h3>
-			<%= text_field_tag(:url,nil,style:"width:100%") %><br>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<%= submit_tag "Submit!", :class => "submit" %>
-		<% end %>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3 col-md-4">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
-                            </span>Content</a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-pencil text-primary"></span><a href="http://www.jquery2dotnet.com">Articles</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-flash text-success"></span><a href="http://www.jquery2dotnet.com">News</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-file text-info"></span><a href="http://www.jquery2dotnet.com">Newsletters</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-comment text-success"></span><a href="http://www.jquery2dotnet.com">Comments</a>
-                                        <span class="badge">42</span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-th">
-                            </span>Modules</a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Orders</a> <span class="label label-success">$ 320</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Invoices</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Shipments</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Tex</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-user">
-                            </span>Account</a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Change Password</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Notifications</a> <span class="label label-info">5</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="http://www.jquery2dotnet.com">Import/Export</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-trash text-danger"></span><a href="http://www.jquery2dotnet.com" class="text-danger">
-                                            Delete Account</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file">
-                            </span>Reports</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-usd"></span><a href="http://www.jquery2dotnet.com">Sales</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-user"></span><a href="http://www.jquery2dotnet.com">Customers</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-tasks"></span><a href="http://www.jquery2dotnet.com">Products</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-shopping-cart"></span><a href="http://www.jquery2dotnet.com">Shopping Cart</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">OSU EVENTS</a>
             </div>
+            <!-- Top Menu Items -->
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown1">
+                          <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span> Entertainment
+                          <span class="badge"><%= Calendar.where(typeOf:"Entertainment").count  %></span>
+                        </a>
+                        <ul id="dropdown1" class="collapse">
+                        <% Calendar.where(typeOf:"Entertainment").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown2">
+                          <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>  Athletics 
+                          <span class="badge"><%= Calendar.where(typeOf:"Sports").count  %></span> </a>
+                        <ul id="dropdown2" class="collapse">
+                        <% Calendar.where(typeOf:"Sports").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown3">
+                          <span class="glyphicon glyphicon-glass" aria-hidden="true"></span> Food/Drinks
+                          <span class="badge"><%= Calendar.where(typeOf:"Food and Drinks").count  %></span></a>
+                        <ul id="dropdown3" class="collapse">
+                        <% Calendar.where(typeOf:"Food and Drinks").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown4">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Student Orgs
+                        <span class="badge"><%= Calendar.where(typeOf:"School Events/Student Organizations").count  %></span></a>
+                        <ul id="dropdown4" class="collapse">
+                        <% Calendar.where(typeOf:"School Events/Student Organizations").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#dropdown5">
+                          <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Others
+                          <span class="badge"><%= Calendar.where(typeOf:"Other").count  %></span></a>
+                        <ul id="dropdown5" class="collapse">
+                        <% Calendar.where(typeOf:"Other").each do |calendar| %>
+                            <li>
+                                <button id="<%=calendar.id%>" type="button" class="btn btn-default btn-block" value="false">
+                                <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> 
+                                <%= calendar.name %>
+                                </button>
+                            </li>
+                        <% end %>
+                        </ul>
+                    </li>
+                    <li> 
+                        <a data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                          Add a Calendar!
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div id='loading'>loading...</div>
+            <div class='container-fluid'>
+                <div class="row">
+                    <div class='col-md-12'>
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h1 class="modal-title" id="myModalLabel">Add a Google Calendar!</h1>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_tag visitors_addcalendar_path do %>
+                        <h3> Name </h3>
+                        <%= text_field_tag(:name,nil,style:"width:100%") %><br>
+                        <h3> Type </h3>
+                        <%= select_tag :type, options_for_select(types), size:5, style:"width:100%" %><br>
+                        <h3> Description </h3>
+                        <%= text_area_tag(:desc,nil,size:"73x5") %><br>
+                        <h3> URL </h3>
+                        <%= text_field_tag(:url,nil,style:"width:100%") %><br>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <%= submit_tag "Submit!", :class => "submit" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.container-fluid -->
+
         </div>
+        <!-- /#page-wrapper -->
+
     </div>
-</div>
+    <!-- /#wrapper -->
